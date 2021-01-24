@@ -40,7 +40,7 @@ def spherical2cartesian(r, theta_rad, phi_rad):
 def cartesian2spherical(x, y, z):
     r = (x**2 + y**2 + z**2)**0.5
     theta_rad = np.arccos(z / (x**2 + y**2 + z**2)**0.5)
-    phi_rad = np.sign(y)*np.arccos(x/(x**2 + y**2)**0.5)
+    phi_rad = np.where(y>=0, 1, -1)*np.arccos(x/(x**2 + y**2)**0.5)
     return r, theta_rad, phi_rad
 
 def calc_new_pole(lat_point_1, lon_point_1, lat_point_2, lon_point_2):
@@ -129,7 +129,7 @@ def main():
     ###########################################################################
     # END OF SETTINGS
     ###########################################################################
-    
+
 
     # 射軸変換
     lat, lon = oblique(lat, lon, lat_point_1, lon_point_1, lat_point_2, lon_point_2)
